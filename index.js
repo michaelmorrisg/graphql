@@ -19,9 +19,6 @@ const typeDefs =`
  }
 `
 
-//random comment
-
-
 const cars = [
     {
         make: "Honda",
