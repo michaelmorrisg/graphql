@@ -17,6 +17,7 @@ const typeDefs =`
  type Mutation {
      addCar(make: String!, model: String!, year: Int!, color: String!): Car!
      deleteCar(id: Int!): [Car]!
+     changeCar(make:String, model:String, year:Int, color:String, id: Int!): Car!
  }
 `
 
@@ -77,6 +78,25 @@ const resolvers = {
         deleteCar: (context, args) => {
             cars.splice(args.id,1)
             return cars
+        },
+        changeCar: (context, args) => {
+            const editedCar = {
+                make: args.make,
+                model: args.model,
+                year: args.year,
+                color: args.color
+            }
+
+            let index = cars.findIndex((val)=>{
+                return val.id === args.id
+            })
+            console.log(cars[index])
+            let updateMake = args.make ? args.make : cars[index].make
+            let updateModel = args.model ? args.model : cars[index].model
+            let updateYear = args.year ? args.year : cars[index].year
+            let updateColor = args.color ? args.color : cars[index].color
+            cars[index] = Object.assign(cars[index], {make:updateMake, model:updateModel, year:updateYear, color:updateColor})
+            return cars[index]
         }
     }
 }
