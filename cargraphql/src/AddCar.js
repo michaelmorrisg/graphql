@@ -37,10 +37,6 @@ class AddCar extends Component {
     })
   }
 
-  submit() {
-    
-  }
-
   render() {
     console.log(this.props.AddCar)
     return (
@@ -53,6 +49,7 @@ class AddCar extends Component {
       </div>
     )
   }
+  
   _addCar = async () => {
     const { model, make, year, color } = this.state
     await this.props.addCar({
