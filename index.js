@@ -13,6 +13,10 @@ const typeDefs =`
      color: String!
      id: Int!
  }
+
+ type Mutation {
+     addCar(make: String!, model: String!, year: Int!, color: String!): Car!
+ }
 `
 
 
@@ -51,6 +55,25 @@ const resolvers = {
     Query: {
         helloworld: ()=> "Hello team :D",
         cars: ()=> cars
+    },
+    Mutation: {
+        addCar: (context, args) => {
+            const {
+                make,
+                model,
+                year,
+                color
+            } = args
+            const newCar = {
+                make,
+                model,
+                year,
+                color,
+                id: cars.length
+            }
+            cars.push(newCar)
+            return newCar
+        }
     }
 }
 
