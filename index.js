@@ -4,6 +4,7 @@ const typeDefs =`
  type Query {
      helloworld: String!
      cars: [Car!]!
+     getCar(make:String!): [Car]!
  }
 
  type Car {
@@ -55,7 +56,16 @@ const cars = [
 const resolvers = {
     Query: {
         helloworld: ()=> "Hello team :D",
-        cars: ()=> cars
+        cars: ()=> cars,
+        getCar: (context,args) => {
+            console.log(args.make)
+            let result = cars.filter((car)=>{
+                console.log(car.make, 'car.make!')
+                return args.make === car.make
+            })
+            // console.log(result)
+            return result
+        }
     },
     Mutation: {
         addCar: (context, args) => {
@@ -98,6 +108,7 @@ const resolvers = {
             cars[index] = Object.assign(cars[index], {make:updateMake, model:updateModel, year:updateYear, color:updateColor})
             return cars[index]
         }
+
     }
 }
 
