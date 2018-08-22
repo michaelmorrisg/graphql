@@ -16,6 +16,7 @@ const typeDefs =`
 
  type Mutation {
      addCar(make: String!, model: String!, year: Int!, color: String!): Car!
+     deleteCar(id: Int!): [Car]!
  }
 `
 
@@ -72,6 +73,10 @@ const resolvers = {
             }
             cars.push(newCar)
             return newCar
+        },
+        deleteCar: (context, args) => {
+            cars.splice(args.id,1)
+            return cars
         }
     }
 }
